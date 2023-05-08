@@ -1,0 +1,72 @@
+{% load static %}
+<div class="modal fade" id="editModal{{ student.pk }}" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editStudentModalLabel"><i class='bx bxs-edit align-middle h1'  style='color:#5e6262'></i> Edit Student</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editStudentForm{{student.pk}}" method="post" action="{% url 'students:edit_student' student.pk %}">
+            {% csrf_token %}
+
+              <!-- First Name & Last Name-->
+              <div class="row">
+                <div class="mb-3 col-md-6">
+                  <label for="editFirstName" class="form-label">First Name</label>
+                  <input type="text" class="form-control" id="editFirstName" name="first_name" value="{{ student.first_name }}">
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label for="editLastName" class="form-label">Last Name</label>
+                  <input type="text" class="form-control" id="editLastName" name="last_name" value="{{ student.last_name }}">
+                </div>
+              </div>
+
+              <!-- Age & Email -->
+              <div class="row">
+                <div class="mb-3 col-md-2">
+                  <label for="editAge" class="form-label">Age</label>
+                  <input type="number" class="form-control" id="editAge" name="age" value="{{ student.age }}">
+                </div>
+                <div class="mb-3 col-md-10">
+                  <label for="editEmail" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="editEmail" name="email" value="{{ student.email }}">
+                </div>
+              </div>
+
+              <!-- Course & Teacher -->
+              <div class="row">
+                  <div class="mb-3 col-md-6">
+                      <label for="editCourse" class="form-label">Course</label>
+                      <select class="form-select" id="editCourse" name="course">
+                        {% for course in courses %}
+                          {% if course.pk == student.course.pk %}
+                            <option value="{{ course.pk }}" selected>{{ course.name }}</option>
+                          {% else %}
+                            <option value="{{ course.pk }}">{{ course.name }}</option>
+                          {% endif %}
+                        {% endfor %}
+                      </select>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                      <label for="editTeachers" class="form-label">Teachers</label>
+                      <select class="form-select" id="editTeachers" name="teachers">
+                        {% for teacher in teachers %}
+                        {% if teacher in student.teachers.all %}
+                        <option value="{{ teacher.pk }}" selected>{{ teacher.first_name }} {{ teacher.last_name }}</option>
+                        {% else %}
+                        <option value="{{ teacher.pk }}">{{ teacher.first_name }} {{ teacher.last_name }}</option>
+                        {% endif %}
+                        {% endfor %}
+                      </select>
+                  </div>
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" form="editStudentForm{{student.pk}}">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>

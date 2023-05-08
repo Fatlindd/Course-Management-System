@@ -1,0 +1,3 @@
+The python Course includes the most basic concepts, 
+starting from the initial knowledge to the most advanced ones.
+

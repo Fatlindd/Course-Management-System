@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<div>
+  <i class='bx bxs-id-card h2 align-middle' ></i> Add new student
+</div>
+{% endblock title %}
+
+{% block content %}
+<div class="shadow border p-4 mb-5 bg-white my-4 rounded">
+  <form action="{% url 'students:add_student' %}" method="POST">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-md-4">
+        <img src="{% static 'images/user-add.png' %}" class="mx-auto d-block img-fluid w-75">
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary m-3 w-75">Add</button>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-sm-4 form-group m-3">
+            <label for="first_name">First Name</label>
+            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Your name...">
+            {% if error_first_name %}
+              <span style="color: red;">{{ error_first_name }}</span>
+            {% endif %}
+          </div>
+
+          <div class="col-sm-4 form-group m-3">
+            <label for="last_name">Last Name</label>
+            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Your lastname...">
+            {% if error_last_name %}
+              <span style="color: red;">{{ error_last_name }}</span>
+            {% endif %}
+          </div>
+
+          <div class="col-sm-2 form-group m-3">
+            <label for="age">Age</label>
+            <input type="number" class="form-control" id="age" name="age">
+            {% if error_age %}
+              <span style="color: red;">{{ error_age }}</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-5 form-group m-3">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email">
+            {% if email_exists %}
+              <span style="color: red;">{{ email_exists }}</span>
+            {% endif %}
+
+            {% if email_error %}
+              <span style="color: red;">{{ email_error }}</span>
+            {% endif %}
+          </div>
+
+          <div class="col-sm-5 form-group d-flex flex-column justify-content-center align-items-start">
+            <label class="h5">Gender</label>
+            <div class="d-flex align-item-center">
+              <div class="form-check">
+                <input class="form-check-input mx-1" type="radio" name="gender" id="male" value="M" checked>
+                <label class="form-check-label" for="male">
+                  Male
+                </label>
+              </div>
+            
+              <div class="form-check">
+                <input class="form-check-input mx-1" type="radio" name="gender" id="female" value="F">
+                <label class="form-check-label" for="female">
+                Female
+                </label>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input mx-1" type="radio" name="gender" id="other" value="O">
+                <label class="form-check-label" for="other">
+                  Other
+                </label>
+              </div>
+              
+              {% if gender_error %}
+                <span style="color: red;">{{ gender_error }}</span>
+              {% endif %}
+              </div>
+          </div>
+        </div>
+
+        <div class="row mx-2">
+          <div class="col-sm-6 form-group">
+            <label for="course">Course</label>
+            <select class="form-control" id="course" name="course">
+              <option value="">-- Select Course --</option>
+              {% for course in courses %}
+                <option value="{{ course.pk }}">{{ course.name }}</option>
+              {% endfor %}
+            </select>
+            {% if course_error %}
+              <span style="color: red;">{{ course_error }}</span>
+            {% endif %}
+          </div>
+
+          <div class="col-sm-6 form-group">
+            <label for="teacher">Teacher</label>
+            <select class="form-control" id="teacher" name="teacher">
+              <option value="">-- Select Teacher --</option>
+              {% for teacher in teachers %}
+                <option value="{{ teacher.id }}">{{ teacher.first_name }} {{ teacher.last_name }}</option>
+              {% endfor %}
+            </select>
+            {% if teacher_error %}
+              <span style="color: red;">{{ teacher_error }}</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block tab_name %}
+	<title>CMS | Students</title>
+{% endblock tab_name %}
+
+
+{% block search_input %}
+<div class="input-group d-flex mt-2 justify-content-between search">
+    <!-- Include template search.html for search by column in rows table -->
+    {% include 'students/search.html' %}
+
+    <div class="add-button my-1">
+        <a type="submit" class="btn btn-primary mx-2" href="{% url 'students:add_student' %}">
+            <div class="centered-icon">
+              <i class='bx bx-plus' ></i>
+              <span>Add Student</span>
+            </div>
+        </a>
+    </div>
+</div>
+{% endblock search_input %}
+
+
+{% block title %}
+    <div><i class='bx bxs-user-detail align-middle h1' style='color:#5e6262'></i> Students </div>
+{% endblock title %}
+
+
+{% block content %}
+{% if students %}
+<table class="table table-striped tbl mt-3">
+    <thead>
+      <tr class="text-light" style="background-color: #414141;">
+        <th scope="col">ID</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Course</th>
+        <th scope="col">Teacher</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+      <tr>
+        <th scope="row">{{ student.pk }}</th>
+        <td>{{ student.first_name }}</td>
+        <td>{{ student.last_name }}</td>
+        <td>{{ student.email }}</td>
+        <td>
+           <a href="{% url 'courses:home' %}#{{student.course.pk}}" style="text-decoration: none; color: #1A2980;">
+                {{ student.course }}
+            </a>
+        </td>
+        <td>
+            <a href="{% url 'teachers:home' %}#{{student.teacher.pk}}" style="text-decoration: none; color: #1A2980;">
+                {{ student.teacher }}
+            </a>
+        </td>
+        <td>
+
+          <!-- Links for CRUD -->
+          <a href="{% url 'students:view_student' student.pk %}" data-bs-toggle="modal" data-bs-target="#viewModal{{ student.pk }}"><i class='bx bxs-info-square' style='color:#83b5e5'  ></i></a>
+          <a href="{% url 'students:edit_student' student.pk %}" data-bs-toggle="modal" data-bs-target="#editModal{{ student.pk }}"><i class='bx bxs-edit' style='color:#b6c80a'  ></i></a>
+          <a href="{% url 'students:delete_student' student.pk %}" data-bs-toggle="modal" data-bs-target="#deleteModal{{ student.pk }}"><i class='bx bx-trash' style='color:#df243d'  ></i></a>
+
+          <!-- Modal - View Student -->
+            {% include 'students/view_student.html' %}
+          <!-- End Student View Modal -->
+
+          <!-- Modal - Edit Student -->
+            {% include 'students/edit_student.html' %}
+          <!-- End Modal - Edit Student -->
+
+          <!-- Modal - Delete Student -->
+            {% include 'students/delete_student.html' %}
+          <!-- End Modal - Delete Student -->
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+</table>
+  {% else %}
+    <h5 class="alert alert-light ms-4 me-4">No Students Records</h5>
+    {% endif %}
+{% endblock content %}
+
+

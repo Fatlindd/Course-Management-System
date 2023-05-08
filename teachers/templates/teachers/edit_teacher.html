@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<div>
+  <i class='bx bxs-id-card h2 align-middle' ></i> Edit Teacher
+</div>
+{% endblock title %}
+
+{% block content %}
+  <div class="shadow border p-4 mb-5 bg-white my-4 rounded">
+    <form method="post" action="" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <div class="row">
+        <div class="col-md-5">
+          <img src="{% static 'images/teacher.png' %}" class="mx-auto d-block img-fluid w-75">
+          <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary m-3 w-75">Edit</button>
+          </div>
+        </div>
+
+        <div class="col-md-7">
+          <!-- {{ form.as_p }} -->
+          <div class="row mt-2 mb-3">
+            <div class="col-md-6">
+              {{ form.first_name.label }}
+              {{ form.first_name }}
+            </div>
+            <div class="col-md-6">
+              {{ form.last_name.label }}
+              {{ form.last_name }}
+            </div>
+          </div>
+          <div class="row my-3">
+            <div class="col-md-6">
+              {{ form.age.label }}
+              {{ form.age }}
+            </div>
+            <div class="col-md-6">
+              {{ form.email.label }}
+              {{ form.email }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              {{ form.course.label }}
+              {{ form.course }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+{% endblock content %}
+

@@ -1,0 +1,38 @@
+{% load static %}
+<div class="modal" id="viewModal{{ student.pk }}" tabindex="-1" aria-labelledby="myModalLabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <i class='bx bxs-info-circle align-middle h1' style='color:#5ca2ff'  ></i> Student: {{ student.first_name }} {{ student.last_name }}
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-5">
+                    <img src="{% static 'images/user-info.png'  %}" class="img-fluid">
+                </div>
+                <div class="col-md-7 d-flex align-items-center">
+                    <ul class="list-unstyled">
+                    <li>Student Number: <strong>{{ student.pk }}</strong></li>
+                    <li>First Name: <strong>{{ student.first_name }}</strong></li>
+                    <li>Last Name: <strong>{{ student.last_name }}</strong></li>
+                    <li>Age: <strong>{{ student.age }}</strong></li>
+                    <li>Email: <strong>{{ student.email}}</strong></li>
+                    <li>Gender: <strong>{{ student.get_gender_display }}</strong></li>
+                    <li>Course: <strong>{{ student.course }}</strong></li>
+                    <li>Teacher: <strong>{{ student.teacher }}</strong></li>
+                  </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

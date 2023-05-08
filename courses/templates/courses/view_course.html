@@ -1,0 +1,36 @@
+{% load static %}
+
+<div class="modal" id="viewCourseModal{{ course.pk }}" tabindex="-1" aria-labelledby="myModalLabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <i class='bx bxs-info-circle align-middle h1' style='color:#5ca2ff'  ></i> Course:
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="{% static 'images/info-course.png' %}" class="img-fluid mx-auto" >
+                </div>
+                <div class="col-md-8 d-flex justify-content-center align-items-center">
+                  <ul class="list-unstyled m-0">
+                    <li>Name: <strong>{{ course.name }}</strong></li>
+                    <li>Start Date: <strong>{{ course.start_date }}</strong></li>
+                    <li>Price: <strong>{{ course.price }}€</strong></li>
+                    <li>Created At: <strong>{{ course.created_at }}</strong></li>
+                    <li>Updated At: <strong>{{ course.updated_at }}</strong></li>
+                  </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

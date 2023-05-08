@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block tab_name %}
+	<title>CMS | Courses</title>
+{% endblock tab_name %}
+
+{% block search_input %}
+<div class="input-group d-flex mt-2 justify-content-end">
+    <div class="add-button my-1">
+        <a type="submit" class="btn btn-primary mx-2" href="{% url 'courses:add_course' %}">
+            <div class="centered-icon">
+              <i class='bx bx-plus' ></i>
+              <span>Add Course</span>
+            </div>
+        </a>
+    </div>
+</div>
+{% endblock search_input %}
+
+
+    {% block title %}
+        <div><i class='bx bxs-book-content align-middle h2' style='color:#5e6262'></i> Courses</div>
+    {% endblock title %}
+
+{% block content %}
+<div class="row row-cols-1 row-cols-md-3 g-4 my-2">
+    {% for course in course_list %}
+    <div class="col" id="{{ course.pk }}">
+      <div class="card h-100 shadow">
+        <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.name }}">
+        <div class="card-header d-flex justify-content-between p-2">
+          {{ course.name }}<p class="h6 d-flex align-items-center justify-content-end text-primary m-0"><i class='bx bx-euro'></i>{{ course.price }}</p>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{ course.notes }}</p>
+        </div>
+        <div class="card-footer d-flex justify-content-between p-2">
+            <small class="text-muted">Posted: {{ course.created_at|date:"Y-m-d" }}</small>
+            <div>
+              <!-- Calling Modal Bootstrap saved on view_course.html -->
+              <a href="{% url 'courses:view_course' course.pk %}" data-bs-toggle="modal" data-bs-target="#viewCourseModal{{ course.pk }}"><i class='bx bxs-info-square' style='color:#83b5e5'></i></a>
+              {% include 'courses/view_course.html' %}
+
+              <!-- Calling Modal Bootstrap saved on edit_course.html -->
+              <a href="{% url 'courses:edit_course' course.pk %}"><i class='bx bxs-edit' style='color:#b6c80a'></i></a>
+
+              <!-- Calling Modal Bootstrap saved on delete_course.html -->
+              <a href="{% url 'courses:delete_course' course.pk %}" data-bs-toggle="modal" data-bs-target="#deleteModal{{ course.pk }}"><i class='bx bx-trash' style='color:#df243d'></i></a>
+              {% include 'courses/delete_course.html' %}
+
+            </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
+
+
+
+  
+

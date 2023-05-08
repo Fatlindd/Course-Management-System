@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block tab_name %}
+	<title>CMS | Teachers</title>
+{% endblock tab_name %}
+
+
+{% block search_input %}
+<div class="input-group d-flex mt-2 justify-content-end">
+    <div class="add-button my-1">
+        <a type="submit" class="btn btn-primary mx-2" href="{% url 'teachers:add_teacher' %}">
+            <div class="centered-icon">
+              <i class='bx bx-plus' ></i>
+              <span>Add Teacher</span>
+            </div>
+        </a>
+    </div>
+</div>
+{% endblock search_input %}
+
+{% block title %}
+        <div><i class='bx bxs-user-badge align-middle h2' style='color:#5e6262'></i> Teachers </div>
+{% endblock title %}
+
+
+{% block content %}
+<div class="row row-cols-1 row-cols-md-3 g-4 my-2">
+{% for teacher in teacher_list %}
+<div class="col-md-4 teacher-cards hover-shadow" id="{{ teacher.pk }}">
+    <a href="" class="card-link text-decoration-none text-dark" data-bs-toggle="modal" data-bs-target="#viewModal{{ teacher.pk }}">
+    <div class="card shadow">
+        <div class="card-content">
+        <div class="card-body">
+            <div class="media d-flex">
+            <div class="media-body text-left col-7">
+                <h3 class="text-success mb-3">{{ teacher.num_students }} <span class="h6">Students</span></h3>
+                <span>{{ teacher }}</span><br>
+                <span style="font-size: 12px;" class="text-success">Course: </span>
+                <span style="font-size: 12px;color: #167CCA;">{{ teacher.course }}</span>
+            </div>
+            <div class="align-self-center col-5">
+                <img src="{% static 'images/teacher.png' %}" class="mx-auto d-block img-fluid w-75">
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</a>
+</div>
+    <!-- Calling Modal Bootstrap saved on view_course.html -->
+    {% include 'teachers/detail_teacher.html' %}
+{% endfor %}
+</div>
+{% endblock content %}
